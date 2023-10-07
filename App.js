@@ -32,7 +32,7 @@ export default function App() {
           </View>
           <View style={styles.listContainer}>
             {listOfNotes.map((item, index) => (
-              <Text key={'item${index}'}>{item}</Text>
+              <Text style={styles.listOfNotes} key={'item${index}'}>{item}</Text>
               ))}
           </View>
     </View>
@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
   titleText: {
     fontWeight: 'bold',
     fontSize: 30,
-    marginHorizontal: 'auto'
+    marginHorizontal: 'auto',
+    color: 'white'
   },
 
   container : {
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     paddingHorizontal: 50, // Add horizontal margin
     paddingVertical: 20,
+    backgroundColor: '#000000'
   },
 
   inputContainer : {
@@ -74,7 +76,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     placeholderTextColor: '#808080',
-    flex: 1
+    flex: 1,
+    color: 'white'
   },
 
   button : {
@@ -99,7 +102,12 @@ const styles = StyleSheet.create({
   notes : {
     textAlign: 'left',
     flex: 1,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: 'white'
+  },
+
+  listOfNotes : {
+    color: 'white'
   }
 
 });
