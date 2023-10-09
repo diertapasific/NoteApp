@@ -1,35 +1,37 @@
-import { 
-  StyleSheet, 
-  Text, View, 
-  Image, 
-  TextInput, 
-  Button, 
+import {
+  StyleSheet,
+  Text, View,
+  Image,
+  TextInput,
+  Button,
   TouchableOpacity,
   ScrollView,
   FlatList,
-  Pressable} from 'react-native';
+  Pressable
+} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import ApiCall from './components/api_call';
 
 export default function App() {
 
   const [value, setvalue] = useState('')
   const [listOfNotes, setListOfNotes] = useState([])
 
-  function handleOnChangeText(getInputText){
+  function handleOnChangeText(getInputText) {
     setvalue(getInputText)
   }
 
-  function handleOnPressButton(){
+  function handleOnPressButton() {
     setListOfNotes(currentNotes => [...currentNotes, value])
     setvalue('')
   }
 
-  function handleRemoveItem(getCurrentIndex){
+  function handleRemoveItem(getCurrentIndex) {
     console.log("item pressed lol")
     let cpyListOfNotes = [...listOfNotes]
-    cpyListOfNotes = cpyListOfNotes.filter((_,index) => getCurrentIndex !== index)
+    cpyListOfNotes = cpyListOfNotes.filter((_, index) => getCurrentIndex !== index)
     setListOfNotes(cpyListOfNotes)
   }
 
@@ -38,44 +40,50 @@ export default function App() {
   return (
     <View style={styles.container}>
 
-        <View style={styles.header} >
-          
-          <Text style={styles.titleText}>Note List</Text>
+      <View style={styles.header} >
 
-          <View style={styles.inputContainer}>
+        <Text style={styles.titleText}>Note List</Text>
 
-            <TextInput
-              onChangeText={handleOnChangeText}
-              style={[styles.textInput]}
-              placeholder="Your notes"
-              value={value}/>
+        <View style={styles.inputContainer}>
 
-            <TouchableOpacity onPress={handleOnPressButton} style={[styles.button]}>
-              <Text style={styles.btnTxt}>Save</Text>
-            </TouchableOpacity>
+          <TextInput
+            onChangeText={handleOnChangeText}
+            style={[styles.textInput]}
+            placeholder="Type your notes here"
+            value={value} />
 
-          </View>
+          <TouchableOpacity onPress={handleOnPressButton} style={[styles.button]}>
+            <Text style={styles.btnTxt}>Save</Text>
+          </TouchableOpacity>
+
         </View>
+      </View>
 
-        <View style={styles.listContainer}>
-          {/* Scroll View itu render semua list sekaligus */}
-          {/* <ScrollView>
+      <View style={styles.listContainer}>
+        {/* Scroll View itu render semua list sekaligus */}
+        {/* <ScrollView>
             {listOfNotes.map((item, index) => (
               <Text style={styles.listItems} key={'item${index}'}>{item}</Text>
             ))}
           </ScrollView> */}
-          <FlatList
+        <FlatList
           data={listOfNotes}
           renderItem={({ item, index }) => (
             <View style={styles.listItemContainer}>
               <Text style={styles.listItems}>{item}</Text>
               <TouchableOpacity onPress={() => handleRemoveItem(index)}>
-                <Ionicons name="trash-outline" size={24} color='#F9D949' style={styles.trashIcon}/>
+                <Ionicons name="trash-outline" size={24} color='#F9D949' style={styles.trashIcon} />
               </TouchableOpacity>
             </View>
-          )}/>
+          )} />
 
-        </View>
+      </View>
+
+      {/* API Components */}
+      <View style={styles.apiContainer}>
+        <ApiCall />
+      </View>
+
 
     </View>
   );
@@ -87,20 +95,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     marginHorizontal: 'auto',
-    color : '#3C486B'
+    color: '#3C486B'
   },
 
-  container : {
+  container: {
     display: 'flex',
     flex: 1,
     gap: 20,
     fontFamily: 'Arial',
-    paddingHorizontal: 50, 
+    paddingHorizontal: 50,
     paddingVertical: 20,
     backgroundColor: '#F0F0F0'
   },
 
-  inputContainer : {
+  inputContainer: {
     height: 100,
     flexDirection: 'row',
     alignItems: 'center',
@@ -110,7 +118,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#3C486B'
   },
 
-  textInput : {
+  textInput: {
     height: 30,
     borderWidth: 1,
     borderRadius: 15,
@@ -121,8 +129,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
-  button : {
-    height:30,
+  button: {
+    height: 30,
     width: 60,
     borderRadius: 15,
     backgroundColor: '#F9D949',
@@ -130,19 +138,19 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
-  btnTxt : {
+  btnTxt: {
     color: 'white',
     fontWeight: 'bold'
   },
-  
-  notes : {
+
+  notes: {
     textAlign: 'left',
     flex: 1,
     fontWeight: 'bold',
     color: '#3C486B'
   },
 
-  listItems : {
+  listItems: {
     height: 70,
     backgroundColor: '#3C486B',
     marginBottom: 10,
@@ -154,15 +162,20 @@ const styles = StyleSheet.create({
 
   listItemContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: 1
   },
 
-  trashIcon : {
-    marginTop : -10,
+  trashIcon: {
+    marginTop: -10,
     marginLeft: 5
   },
 
-  header : {
+  header: {
     marginTop: '10%'
+  },
+
+  apiContainer: {
+    flex: 2
   }
 });
